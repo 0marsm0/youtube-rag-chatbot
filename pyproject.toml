@@ -1,0 +1,18 @@
+[project]
+name = "youtube-rag-chatbot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.123.4",
+    "google-generativeai>=0.8.5",
+    "ipykernel>=7.1.0",
+    "jupyter>=1.1.1",
+    "lancedb>=0.25.3",
+    "pandas>=2.3.3",
+    "pydantic>=2.12.5",
+    "pydantic-ai>=1.25.1",
+    "python-dotenv>=1.2.1",
+    "uvicorn>=0.38.0",
+]
