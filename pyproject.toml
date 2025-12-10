@@ -14,5 +14,6 @@ dependencies = [
     "pydantic>=2.12.5",
     "pydantic-ai>=1.25.1",
     "python-dotenv>=1.2.1",
+    "sentence-transformers>=5.1.2",
     "uvicorn>=0.38.0",
 ]
