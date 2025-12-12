@@ -5,7 +5,7 @@ st.set_page_config(page_title="AI Youtuber", page_icon="🎥")
 st.title("🎥 The Youtuber RAG Bot")
 st.write("Ask any question about Data Engineering!")
 
-API_URL = "http://127.0.0.1:8000/chat"
+URL = "https://youtube-rag-alisher-de24.azurewebsites.net"
 
 if "messages" not in st.session_state:
     st.session_state.messages = []

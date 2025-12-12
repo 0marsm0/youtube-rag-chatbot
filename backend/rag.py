@@ -1,7 +1,7 @@
 # import os
 from pydantic_ai import Agent, RunContext
 import lancedb
-from constants import VECTOR_DATABASE_PATH
+from backend.constants import VECTOR_DATABASE_PATH
 
 # from pydantic_ai.models.gemini import GoogleModel
 from dotenv import load_dotenv
