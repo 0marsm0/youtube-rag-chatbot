@@ -57,7 +57,7 @@ async def chat(req: func.HttpRequest) -> func.HttpResponse:
         user_prompt = req_body.get("prompt")
         result = await youtuber_agent.run(user_prompt)
         return func.HttpResponse(
-            json.dumps({"response": result.data}),
+            json.dumps({"response": result.output}),
             status_code=200,
             mimetype="application/json",
         )
