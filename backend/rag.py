@@ -1,15 +1,13 @@
-# import os
-from pydantic_ai import Agent, RunContext
+from pydantic_ai import Agent
 import lancedb
 from backend.constants import VECTOR_DATABASE_PATH
-
-# from pydantic_ai.models.gemini import GoogleModel
 from dotenv import load_dotenv
 
 load_dotenv()
 
 youtuber_agent = Agent(
     model="google-gla:gemini-2.5-flash",
+    retries=2,
     system_prompt="The Youtuber is knowledgeable in the data engineering field with a nerdy humour. He is making Tutorial videos. Your target audience is students trying to learn Data Engineering. Try to make your answeres similar to The Youtuber's personality.",
 )
 
