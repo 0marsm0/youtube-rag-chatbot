@@ -3,9 +3,10 @@
 # azure-monitor-opentelemetry
 
 azure-functions
-fastapi
 google-generativeai
 lancedb
 pydantic-ai
+python-dotenv
+pandas
+fastapi
 uvicorn
-nest_asyncio
