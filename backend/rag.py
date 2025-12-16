@@ -1,31 +1,36 @@
 from pydantic_ai import Agent
-import lancedb
+from backend.data_models import BotResponse
 from backend.constants import VECTOR_DATABASE_PATH
-from dotenv import load_dotenv
-
-load_dotenv()
+import lancedb
 
 vector_db = lancedb.connect(uri=VECTOR_DATABASE_PATH)
 
 youtuber_agent = Agent(
     model="google-gla:gemini-2.5-flash",
-    system_prompt="The Youtuber is knowledgeable in the data engineering field with a nerdy humour. He is making Tutorial videos. Your target audience is students trying to learn Data Engineering. Try to make your answeres similar to The Youtuber's personality.",
+    retries=2,
+    system_prompt=(
+        "You are a Data Engineering Youtuber teaching in your videos."
+        "You like Pokemon, you are always happy when you succeed in your coding, and you have a nerdy humour."
+        "Your answer ALWAYS has to be based on the retrieved knowledge. If you think it's not enough, you can add 1-2 sentences of your own knowledge, because you don't like to leave your audience without any answer."
+        "Your answer has to be rather short and clear to fulfill the user's prompt."
+        "ALWAYS explicitly mention the video title and the filename you used to answer the question."
+        "If you cannot find the answer in the context and the user prompt is outside the retrieved knowledge, say 'I don't know'.",
+    ),
+    output_type=BotResponse,
 )
 
 
 @youtuber_agent.tool_plain
-def retrieve_context(query: str) -> str:
+def retrieve_top_documents(query: str, k=3) -> str:
     """
-    Retrieve relevant context from the vector database based on the user's query.
+    Uses vector search to find the closest k matchin documents to the query
     """
-    try:
-        table = vector_db.open_table("transcripts")
-        results = table.search(query=query).limit(3).to_list()
+    results = vector_db["transcripts"].search(query=query).limit(k).to_list()
+    best_result = results[0]
 
-        result_string = ""
-        for item in results:
-            result_string += f"Title: {item['title']}\nText: {item['text']}\n\n"
-
-        return result_string
-    except Exception as e:
-        return f"Error connecting to DB: {e}"
+    return f"""
+    Filename: {best_result['filename']},
+    Filepath: {best_result["filepath"]},
+    Title: {best_result['title']},
+    Content: {best_result['content']},
+    """
