@@ -27,7 +27,7 @@ The project follows a serverless microservices architecture:
 2.  **Backend API (`Azure Functions` + `FastAPI`):**
     * Hosted on Azure Functions (Consumption Plan).
     * Uses **PydanticAI** for agentic workflow.
-    * Retrieves relevant context from LanceDB (running in `read_only=True` mode for concurrency).
+    * Retrieves relevant context from LanceDB.
     * Generates responses using **Gemini 2.5 Flash**.
 3.  **Frontend (`Streamlit`):**
     * Simple chat interface to interact with the API.
