@@ -1,5 +1,3 @@
-Markdown
-
 # 🤖 YouTube RAG Chatbot (Serverless & Async)
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
@@ -27,7 +25,7 @@ The project follows a serverless microservices architecture:
 2.  **Backend API (`Azure Functions` + `FastAPI`):**
     * Hosted on Azure Functions (Consumption Plan).
     * Uses **PydanticAI** for agentic workflow.
-    * Retrieves relevant context from LanceDB.
+    * Retrieves relevant context from LanceDB (running in `read_only=True` mode for concurrency).
     * Generates responses using **Gemini 2.5 Flash**.
 3.  **Frontend (`Streamlit`):**
     * Simple chat interface to interact with the API.
@@ -36,9 +34,9 @@ The project follows a serverless microservices architecture:
 
 ## 🚀 Tech Stack
 
-* **Cloud:** Microsoft Azure Functions
-* **Framework:** FastAPI
-* **Vector Database:** LanceDB
+* **Cloud:** Microsoft Azure Functions (Python V2 Model)
+* **Framework:** FastAPI (via `AsgiMiddleware`)
+* **Vector Database:** LanceDB (Serverless, Embedded)
 * **LLM & Embeddings:** Google Gemini 2.5 Flash & Gemini Embedding-001
 * **Agent Framework:** PydanticAI
 * **Frontend:** Streamlit
@@ -63,58 +61,57 @@ The project follows a serverless microservices architecture:
 ├── ingestion.py          # Script to create/update vector DB
 ├── host.json             # Azure configuration
 └── requirements.txt      # Python dependencies
-```
----
+
 
 ## 🛠️ Local Setup
-#### 1. Clone the repository
-   
-Bash
 
+### 1. Clone the repository
+```bash
 git clone [https://github.com/your-username/youtube-rag-chatbot.git](https://github.com/your-username/youtube-rag-chatbot.git)
 cd youtube-rag-chatbot
 
-#### 2. Set up environment
-It is recommended to use uv.
+### 2. Set up environment
+It is recommended to use uv or venv.
 
-Bash
-
-# Using uv (Recommended)
+Using uv (Recommended):
+```bash
 uv sync
+OR using pip:
 
-# OR using pip
+```bash
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+# On Windows:
+.venv\Scripts\activate
+# On Mac/Linux:
+source .venv/bin/activate
+
 pip install -r requirements.txt
-#### 3. Configure Environment Variables
+
+### 3. Configure Environment Variables
 Create a .env file in the root directory:
 
-Ini, TOML
-
+```Ini, TOML
 GOOGLE_API_KEY=your_google_gemini_key
 API_KEY=your_azure_function_key  # Optional for local, required for Streamlit
 
-#### 4. Build the Vector Database
+### 4. Build the Vector Database
 Before running the app, you must ingest the data to create the LanceDB table.
 
-Bash
-
+```bash
 python ingestion.py
 This will read files from data/raw, generate embeddings via Google API, and save them to data/lancedb.
 
-#### 5. Run Locally (Backend)
+### 5. Run Locally (Backend)
 You can run the FastAPI app directly using Uvicorn:
 
-Bash
-
+```bash
 uvicorn api:app --reload
 API will be available at http://127.0.0.1:8000
 
-#### 6. Run Frontend
+### 6. Run Frontend
 In a separate terminal:
 
-Bash
-
+```bash
 streamlit run frontend/app.py
 
 ## ☁️ Deployment to Azure
@@ -124,14 +121,6 @@ Prerequisites: Azure CLI and Azure Functions Core Tools installed.
 
 Deploy:
 
-Bash
-
+```bash
 func azure functionapp publish <YOUR_FUNCTION_APP_NAME>
 Environment Variables: Set GOOGLE_API_KEY in the Azure Portal -> Settings -> Environment Variables.
-
-## 🧪 Usage Example
-User: "What is Data Engineering?"
-
-Bot:
-
-"Alright, fellow data adventurers! From our video 'SQL analytics with DuckDB - introduction', we can gather that data engineering is all about building those awesome data transformations in an ETL pipeline. It's like being a Pokémon trainer for your data!..."
