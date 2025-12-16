@@ -118,11 +118,12 @@ streamlit run frontend/app.py
 ## ☁️ Deployment to Azure
 The project is configured for Azure Functions.
 
-Prerequisites: Azure CLI and Azure Functions Core Tools installed.
+1. Prerequisites: Azure CLI and Azure Functions Core Tools installed.
 
-Deploy:
+2. Deploy:
 
 ```bash
 func azure functionapp publish <YOUR_FUNCTION_APP_NAME>
-Environment Variables: Set GOOGLE_API_KEY in the Azure Portal -> Settings -> Environment Variables.
 ```
+3. Environment Variables: Set GOOGLE_API_KEY in the Azure Portal -> Settings -> Environment Variables.
+
