@@ -34,7 +34,7 @@ The project follows a serverless microservices architecture:
 
 ---
 
-## Tech Stack
+## 🚀 Tech Stack
 
 * **Cloud:** Microsoft Azure Functions
 * **Framework:** FastAPI
@@ -63,7 +63,7 @@ The project follows a serverless microservices architecture:
 ├── ingestion.py          # Script to create/update vector DB
 ├── host.json             # Azure configuration
 └── requirements.txt      # Python dependencies
-
+```
 
 🛠️ Local Setup
 1. Clone the repository
