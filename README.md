@@ -61,7 +61,7 @@ The project follows a serverless microservices architecture:
 ├── ingestion.py          # Script to create/update vector DB
 ├── host.json             # Azure configuration
 └── requirements.txt      # Python dependencies
-
+```
 
 ## 🛠️ Local Setup
 
@@ -69,7 +69,7 @@ The project follows a serverless microservices architecture:
 ```bash
 git clone [https://github.com/your-username/youtube-rag-chatbot.git](https://github.com/your-username/youtube-rag-chatbot.git)
 cd youtube-rag-chatbot
-
+```
 ### 2. Set up environment
 It is recommended to use uv or venv.
 
@@ -77,6 +77,7 @@ Using uv (Recommended):
 ```bash
 uv sync
 OR using pip:
+```
 
 ```bash
 python -m venv .venv
@@ -86,34 +87,34 @@ python -m venv .venv
 source .venv/bin/activate
 
 pip install -r requirements.txt
-
+```
 ### 3. Configure Environment Variables
 Create a .env file in the root directory:
 
 ```Ini, TOML
 GOOGLE_API_KEY=your_google_gemini_key
 API_KEY=your_azure_function_key  # Optional for local, required for Streamlit
-
+```
 ### 4. Build the Vector Database
 Before running the app, you must ingest the data to create the LanceDB table.
 
 ```bash
 python ingestion.py
 This will read files from data/raw, generate embeddings via Google API, and save them to data/lancedb.
-
+```
 ### 5. Run Locally (Backend)
 You can run the FastAPI app directly using Uvicorn:
 
 ```bash
 uvicorn api:app --reload
 API will be available at http://127.0.0.1:8000
-
+```
 ### 6. Run Frontend
 In a separate terminal:
 
 ```bash
 streamlit run frontend/app.py
-
+```
 ## ☁️ Deployment to Azure
 The project is configured for Azure Functions.
 
@@ -124,3 +125,4 @@ Deploy:
 ```bash
 func azure functionapp publish <YOUR_FUNCTION_APP_NAME>
 Environment Variables: Set GOOGLE_API_KEY in the Azure Portal -> Settings -> Environment Variables.
+```
