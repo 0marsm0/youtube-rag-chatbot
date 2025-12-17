@@ -1,6 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from backend.rag import youtuber_agent
-from backend.data_models import UserPrompt, BotResponse
+from backend.data_models import UserPrompt
 
 app = FastAPI()
 
@@ -16,4 +16,4 @@ async def get_response(query: UserPrompt):
         result = await youtuber_agent.run(query.prompt)
         return result.output
     except Exception as e:
-        return BotResponse(response=f"Error: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
